@@ -1,4 +1,5 @@
 # Project 2 Student Hub: Lost in the Scroll
+[Link to live page](https://teliasont.github.io/scrollytelling-dont-panic-tayla/lost-in-the-scroll/index.html)
 
 Student-facing repo for final project execution and turn-in.
 
