@@ -135,25 +135,63 @@ body {
 
 
 /*INTRO UFO SECTION*/
-.column {
+/* .column {
   width: 70%;
   max-width: 70%;
   /* height: 100vh; */
   /* display: flex;
   flex-direction: column;
   align-items: center; */
-  height: auto;
+  /* height: auto; */
   /* z-index: 5; */
-  position: relative;
+  /* position: relative;
   top: 200vh;
   text-align: left;
   overflow: visible;
   border: 3px solid red;
-}
+} */
+ .column {
+  width: 70%;
+  position: relative;
+  margin-top: 200vh;
+  height: auto;
+  overflow: visible;
+ }
 .chapter{
   width: 80%;
 }
 
+.scrolly-container {
+  position: relative;
+  height: 1200vh;
+  width: 100%;
+}
+
+.scrolly {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+.text-box {
+  position: absolute;
+  background: var(--brightyellow);
+  color: var(--darkpurple);
+  padding: var(--sizel);
+  width: 80%;
+  max-width: 500px;
+  z-index: 20;
+}
+.step{
+  height: 100vh;
+  width: 100%;
+  z-index: 10;
+}
 /* .text-box{
   background: #FFCA42;
   color: #31236F;
@@ -168,7 +206,7 @@ body {
   /* transform: translate(-50%, -50%) translateX(-150vw); */
   /* visibility: hidden;
 } */
- .text-box {
+ /* .text-box {
   position: absolute;
   background: #FFCA42;
   color: #31236F;
@@ -176,36 +214,34 @@ body {
   width: 80%;
   max-width: 500px;
   
-  /* Place it exactly in the center of the sticky stage */
   top: 50%;
   left: 50%;
   
-  /* We handle the transform in GSAP now, so leave it blank here */
-  z-index: 100; /* Ensure it is ABOVE the UFO and everything else */
-}
+  z-index: 100; 
+} */
 
 /* Ensure the sticky stage is actually capturing the boxes */
-.scrolly {
+/* .scrolly {
   position: sticky;
   top: 0;
   height: 100vh;
-  /* width: 100%; */
+  /* width: 100%; 
   width: 100vw;
   display: flex;
   align-items: center;
   justify-content: center;
   transform: translateX(-50%);
-  overflow: visible; /* This hides the boxes while x is -120vw */
-  border: 5px solid blue; /* Temporary: if you don't see a blue box, sticky is failing */
-}
+  overflow: visible;
+  border: 5px solid blue;
+} */
 
-.scrolly-container{
+/* .scrolly-container{
   border: 2px solid #0f0;
   position: relative;
   height: 1000vh;
   width: 100%;
-  /* z-index: 20; */
-}
+  /* z-index: 20; 
+} */
 
 /* .scrolly {
   position: sticky;
@@ -218,10 +254,10 @@ body {
   overflow: hidden;
 } */
 
-.step {
+/* .step {
   height: 100vh;
   outline: 1px solid lightpink;
-}
+} */
 
 #ufo {
   width: 60%;

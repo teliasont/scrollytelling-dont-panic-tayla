@@ -204,40 +204,109 @@ function flyInUFO() {
 // });
 // gsap.set(".text-box", { xPercent: -50, yPercent: -50, x: "-150vw" });
 
-const boxes = gsap.utils.toArray(".text-box");
-const steps = gsap.utils.toArray(".step"); // Target the new triggers
+// const boxes = gsap.utils.toArray(".text-box");
+// const steps = gsap.utils.toArray(".step"); // Target the new triggers
+
+// // steps.forEach((step, i) => {
+// //   const box = boxes[i];
+// //   if(!box) return; // Safety check
+
+// //   ScrollTrigger.create({
+// //     trigger: step,
+// //     start: "top center",
+// //     end: "bottom center",
+// //     markers: true, // Add markers for debugging
+// //     onEnter: () => {
+// //       gsap.to(box, { x: 0, autoAlpha: 1, duration: 0.6, overwrite: true, force3d: true });
+// //     },
+// //     onLeave: () => {
+// //       gsap.to(box, { x: "-150vw", autoAlpha: 0, duration: 0.5, overwrite: true });
+// //     },
+// //     onEnterBack: () => {
+// //       gsap.to(box, { x: 0, autoAlpha: 1, duration: 0.6, overwrite: true });
+// //     },
+// //     onLeaveBack: () => {
+// //       gsap.to(box, { x: "-150vw", autoAlpha: 0, duration: 0.5, overwrite: true });
+// //     }
+// //   });
+// // });
+
+// // 1. CLEAR THE PATH: Tell GSAP exactly where the boxes start
+// // This replaces the CSS transform and ensures centering works.
+// gsap.set(".text-box", { 
+//   xPercent: -50, 
+//   yPercent: -50, 
+//   x: "-120vw", // Start off-screen
+//   autoAlpha: 0  // Start invisible
+// });
 
 // steps.forEach((step, i) => {
 //   const box = boxes[i];
-//   if(!box) return; // Safety check
+//   if(!box) return;
 
 //   ScrollTrigger.create({
 //     trigger: step,
 //     start: "top center",
 //     end: "bottom center",
-//     markers: true, // Add markers for debugging
+//     // markers: true, // Keep these on for now!
+    
 //     onEnter: () => {
-//       gsap.to(box, { x: 0, autoAlpha: 1, duration: 0.6, overwrite: true, force3d: true });
+//       console.log(`Box ${i} Entering!`);
+//       gsap.to(box, { 
+//         x: "0", 
+//         autoAlpha: 1, 
+//         duration: 0.6, 
+//         overwrite: true,
+//         ease: "power2.out",
+//         zIndex: 100
+//       });
 //     },
+    
 //     onLeave: () => {
-//       gsap.to(box, { x: "-150vw", autoAlpha: 0, duration: 0.5, overwrite: true });
+//       console.log(`Box ${i} Leaving!`);
+//       gsap.to(box, { 
+//         x: "-120vw", 
+//         autoAlpha: 0, 
+//         duration: 0.5, 
+//         overwrite: true,
+//         ease: "power2.in"
+//       });
 //     },
+
 //     onEnterBack: () => {
-//       gsap.to(box, { x: 0, autoAlpha: 1, duration: 0.6, overwrite: true });
+//       console.log(`Box ${i} Re-entering!`);
+//       gsap.to(box, { 
+//         x: "0", 
+//         autoAlpha: 1, 
+//         duration: 0.6, 
+//         overwrite: true 
+//       });
 //     },
+
 //     onLeaveBack: () => {
-//       gsap.to(box, { x: "-150vw", autoAlpha: 0, duration: 0.5, overwrite: true });
+//       console.log(`Box ${i} Leaving Back!`);
+//       gsap.to(box, { 
+//         x: "-120vw", 
+//         autoAlpha: 0, 
+//         duration: 0.5, 
+//         overwrite: true 
+//       });
 //     }
 //   });
 // });
 
-// 1. CLEAR THE PATH: Tell GSAP exactly where the boxes start
-// This replaces the CSS transform and ensures centering works.
-gsap.set(".text-box", { 
+
+const boxes = gsap.utils.toArray(".text-box");
+const steps = gsap.utils.toArray(".step");
+
+// Initialize Boxes: Center them, move them off-screen left, and hide them
+gsap.set(boxes, { 
+  left: "50%",
+  top: "50%",
   xPercent: -50, 
   yPercent: -50, 
-  x: "-120vw", // Start off-screen
-  autoAlpha: 0  // Start invisible
+  x: "-120vw", 
+  autoAlpha: 0 
 });
 
 steps.forEach((step, i) => {
@@ -248,56 +317,42 @@ steps.forEach((step, i) => {
     trigger: step,
     start: "top center",
     end: "bottom center",
-    // markers: true, // Keep these on for now!
-    
     onEnter: () => {
-      console.log(`Box ${i} Entering!`);
       gsap.to(box, { 
-        x: "0", 
+        x: 0, // Fly to the center!
         autoAlpha: 1, 
-        duration: 0.6, 
-        overwrite: true,
-        ease: "power2.out",
-        zIndex: 100
+        duration: 0.8, 
+        ease: "back.out(1.7)", // Adds a little 'pop' effect
+        overwrite: true 
       });
     },
-    
     onLeave: () => {
-      console.log(`Box ${i} Leaving!`);
       gsap.to(box, { 
-        x: "-120vw", 
+        x: "120vw", // Fly out to the right!
         autoAlpha: 0, 
-        duration: 0.5, 
-        overwrite: true,
-        ease: "power2.in"
-      });
-    },
-
-    onEnterBack: () => {
-      console.log(`Box ${i} Re-entering!`);
-      gsap.to(box, { 
-        x: "0", 
-        autoAlpha: 1, 
         duration: 0.6, 
         overwrite: true 
       });
     },
-
-    onLeaveBack: () => {
-      console.log(`Box ${i} Leaving Back!`);
+    onEnterBack: () => {
       gsap.to(box, { 
-        x: "-120vw", 
+        x: 0, 
+        autoAlpha: 1, 
+        duration: 0.8, 
+        ease: "back.out(1.7)",
+        overwrite: true 
+      });
+    },
+    onLeaveBack: () => {
+      gsap.to(box, { 
+        x: "-120vw", // Fly back out to the left!
         autoAlpha: 0, 
-        duration: 0.5, 
+        duration: 0.6, 
         overwrite: true 
       });
     }
   });
 });
-
-
-
-
 
   const starTL = gsap.timeline({
     scrollTrigger: {
