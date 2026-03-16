@@ -33,10 +33,10 @@
   --typesizes__h3size:[object Object];
   --typesizes__captionsize:[object Object];
 
-  --sizes:16;
-  --sizexs:8;
-  --sizem:24;
-  --sizel:32;
-  --sizexl:48;
-  --sizexxl:64;
+  --sizes:16px;
+  --sizexs:8px;
+  --sizem:24px;
+  --sizel:32px;
+  --sizexl:48px;
+  --sizexxl:64px;
 }

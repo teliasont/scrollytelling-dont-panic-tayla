@@ -93,9 +93,7 @@ function flyInUFO() {
         ease: "sine.inOut" 
       }, 
       "<" 
-    )
-    
-   
+    )      
     .to("#ufo", {
       rotation: 0,
       duration: 1.2,    
@@ -107,9 +105,198 @@ function flyInUFO() {
       duration: 2,
       repeat: -1,
       yoyo: true,
-      ease: "sine.inOut"
-    }, "-=0.5"); // Hover with slight overlap with prev animation
-}
+      ease: "sine.inOut",
+    }, "-=0.5");
+
+    ScrollTrigger.create({
+    trigger: ".column",
+    start: "top 30vh",
+    end: "bottom bottom",
+    pin: ["#ufo"],
+    pinSpacing: false,
+  });
+};
+ 
+//Thoughts.
+//Use a for loop from text box 0 to the last one (whatever that number is)
+//Call for box-1, for example to fly in on scroll. It will remain until the user scrolls again. At that point, it will fly out and the following text box will zoom in.
+//Repeat until the last text box. The last text box will remain until the end of the scroll, and then fly out at the end of the scroll.
+// const boxes = gsap.utils.toArray(".text-box");
+
+// const boxTL = gsap.timeline({
+//   scrollTrigger: {
+//     trigger: ".column",
+//     start: "top top",
+//     end: "+=16000",
+//     scrub: 1,
+//     pin: true,
+//     fastScrollEnd: true,
+//     preventOverlaps: true,
+//     snap: {
+//       snapTo: 1 / (boxes.length-1),
+//       duration:  {min: 0.5, max: 1.2},
+//       delay: 0.2, 
+//       ease: "power1.inOut"
+//     }
+//   }
+// });
+
+// boxes.forEach((box, i) => {
+//   boxTL.fromTo(box, {
+//     xPercent:-150
+//   }, {
+//     xPercent: 0, 
+//     duration: 1,
+//     // ease: "back.out(1.2)",
+//     ease: "power2.out"
+//   } )
+//   .to({}, {duration: 8})
+//   .to(box, {
+//     xPercent: -150,
+//     duration: 1,
+//     ease: "power2.in",
+//   })
+//   .to({}, {duration:5});
+// });
+
+
+// const boxes = gsap.utils.toArray(".text-box");
+// const steps = gsap.utils.toArray(".step");
+// steps.forEach((step,i) => {
+//   const box = boxes[i];
+
+//   ScrollTrigger.create({
+//     trigger: step,
+//     start: "top center",
+//     end: "bottom center",
+//     onEnter: () => {
+//       gsap.to(box, {
+//         x: 0,
+//         duration: 0.6,
+//         ease:"power2.out",
+//         overwrite: true
+//       });
+//     },
+//     onLeave: () => {
+//       gsap.to(box, { 
+//         x: "-150vw",
+//         duration: 0.5,
+//         ease: "power2.in",
+//         overwrite: true
+//       });
+//     },
+//     onEnterBack: () => {
+//       gsap.to(box, {
+//         x:0, duration: 0.6,
+//         ease: "power2.out",
+//         overwrite: true
+//       });
+//     },
+//     onLeaveBack: () => {
+//       gsap.to(box, {
+//         x: "-150vw",
+//         duration: 0.5,
+//         ease: "power2.in",
+//         overwrite: true
+//       });
+//     }
+//   });
+// });
+// gsap.set(".text-box", { xPercent: -50, yPercent: -50, x: "-150vw" });
+
+const boxes = gsap.utils.toArray(".text-box");
+const steps = gsap.utils.toArray(".step"); // Target the new triggers
+
+// steps.forEach((step, i) => {
+//   const box = boxes[i];
+//   if(!box) return; // Safety check
+
+//   ScrollTrigger.create({
+//     trigger: step,
+//     start: "top center",
+//     end: "bottom center",
+//     markers: true, // Add markers for debugging
+//     onEnter: () => {
+//       gsap.to(box, { x: 0, autoAlpha: 1, duration: 0.6, overwrite: true, force3d: true });
+//     },
+//     onLeave: () => {
+//       gsap.to(box, { x: "-150vw", autoAlpha: 0, duration: 0.5, overwrite: true });
+//     },
+//     onEnterBack: () => {
+//       gsap.to(box, { x: 0, autoAlpha: 1, duration: 0.6, overwrite: true });
+//     },
+//     onLeaveBack: () => {
+//       gsap.to(box, { x: "-150vw", autoAlpha: 0, duration: 0.5, overwrite: true });
+//     }
+//   });
+// });
+
+// 1. CLEAR THE PATH: Tell GSAP exactly where the boxes start
+// This replaces the CSS transform and ensures centering works.
+gsap.set(".text-box", { 
+  xPercent: -50, 
+  yPercent: -50, 
+  x: "-120vw", // Start off-screen
+  autoAlpha: 0  // Start invisible
+});
+
+steps.forEach((step, i) => {
+  const box = boxes[i];
+  if(!box) return;
+
+  ScrollTrigger.create({
+    trigger: step,
+    start: "top center",
+    end: "bottom center",
+    // markers: true, // Keep these on for now!
+    
+    onEnter: () => {
+      console.log(`Box ${i} Entering!`);
+      gsap.to(box, { 
+        x: "0", 
+        autoAlpha: 1, 
+        duration: 0.6, 
+        overwrite: true,
+        ease: "power2.out",
+        zIndex: 100
+      });
+    },
+    
+    onLeave: () => {
+      console.log(`Box ${i} Leaving!`);
+      gsap.to(box, { 
+        x: "-120vw", 
+        autoAlpha: 0, 
+        duration: 0.5, 
+        overwrite: true,
+        ease: "power2.in"
+      });
+    },
+
+    onEnterBack: () => {
+      console.log(`Box ${i} Re-entering!`);
+      gsap.to(box, { 
+        x: "0", 
+        autoAlpha: 1, 
+        duration: 0.6, 
+        overwrite: true 
+      });
+    },
+
+    onLeaveBack: () => {
+      console.log(`Box ${i} Leaving Back!`);
+      gsap.to(box, { 
+        x: "-120vw", 
+        autoAlpha: 0, 
+        duration: 0.5, 
+        overwrite: true 
+      });
+    }
+  });
+});
+
+
+
 
 
   const starTL = gsap.timeline({
@@ -132,3 +319,7 @@ function flyInUFO() {
     pinSpacing: false
   });
       
+
+  //Planet spins on scroll trigger per section
+
+  //lens drops down at end of opening section.

@@ -10,6 +10,33 @@
   box-sizing: border-box;
 }
 
+/* Ensure the browser doesn't clip the 'track' or the 'sticky' stage */
+html, body {
+  margin: 0;
+  padding: 0;
+  /* Sticky fails if overflow is hidden on the body/html */
+  overflow-x: hidden; 
+  overflow-y: visible !important; 
+  height: auto;
+  min-height: 100%;
+}
+
+/* Fix for common parent clipping */
+main, #root, #__next {
+  overflow: visible !important;
+}
+
+/* Ensure the sticky container can actually be seen */
+.scrolly-container {
+  overflow: visible !important;
+}
+
+/* Reset any potential flexbox squishing */
+.column {
+  flex-shrink: 0;
+  display: block; /* Flexbox can sometimes mess with sticky child heights */
+}
+
 
 body {
 /*   font-family: system-ui, sans-serif; */
@@ -64,15 +91,9 @@ body {
 }
 
 /* Background layer */
-.layer--bg {
-  z-index: 1;
-}
 #stars {
   width: 1px; 
   height: 1px;
-}
-.layer--mid {
-  z-index: 2;
 }
 #stars2 {
   width: 2px; 
@@ -117,51 +138,99 @@ body {
 .column {
   width: 70%;
   max-width: 70%;
-  height: 600vh;
-  display: flex;
+  /* height: 100vh; */
+  /* display: flex;
   flex-direction: column;
-  align-items: center;
-  z-index: 10;
-  position: absolute;
+  align-items: center; */
+  height: auto;
+  /* z-index: 5; */
+  position: relative;
   top: 200vh;
   text-align: left;
   overflow: visible;
+  border: 3px solid red;
 }
 .chapter{
   width: 80%;
 }
 
-.text-box{
+/* .text-box{
   background: #FFCA42;
   color: #31236F;
-  padding: 32px;
-  width: 100%;
+  padding: var(--sizel);
+  width: 90%;
   margin: 32px auto;
+
+  position: absolute;
+  top: 70%;
+  left: 50%;
+  /* transform: translate(-50%, -50%); */
+  /* transform: translate(-50%, -50%) translateX(-150vw); */
+  /* visibility: hidden;
+} */
+ .text-box {
+  position: absolute;
+  background: #FFCA42;
+  color: #31236F;
+  padding: 2rem;
+  width: 80%;
+  max-width: 500px;
   
+  /* Place it exactly in the center of the sticky stage */
+  top: 50%;
+  left: 50%;
+  
+  /* We handle the transform in GSAP now, so leave it blank here */
+  z-index: 100; /* Ensure it is ABOVE the UFO and everything else */
 }
-.variables{
-  border: 2px solid orange;
+
+/* Ensure the sticky stage is actually capturing the boxes */
+.scrolly {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  /* width: 100%; */
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+  overflow: visible; /* This hides the boxes while x is -120vw */
+  border: 5px solid blue; /* Temporary: if you don't see a blue box, sticky is failing */
 }
-.conditionals {
-  border: 2px solid yellow;
-}
-.events{
+
+.scrolly-container{
   border: 2px solid #0f0;
+  position: relative;
+  height: 1000vh;
+  width: 100%;
+  /* z-index: 20; */
 }
-.toggle {
-  border: 2px solid #0ff;
-}
-.tokens {
-  border: 2px solid blue;
+
+/* .scrolly {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+} */
+
+.step {
+  height: 100vh;
+  outline: 1px solid lightpink;
 }
 
 #ufo {
-  width: 70%;
+  width: 60%;
   height: auto;
   min-height: 200px; 
   flex-shrink: 0; 
   overflow: visible;
   will-change: transform;
+  z-index: 10;
 }
 
 .fire1, .fire2 {
