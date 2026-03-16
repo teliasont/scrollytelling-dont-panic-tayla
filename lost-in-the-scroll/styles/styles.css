@@ -10,33 +10,6 @@
   box-sizing: border-box;
 }
 
-/* Ensure the browser doesn't clip the 'track' or the 'sticky' stage */
-html, body {
-  margin: 0;
-  padding: 0;
-  /* Sticky fails if overflow is hidden on the body/html */
-  overflow-x: hidden; 
-  overflow-y: visible !important; 
-  height: auto;
-  min-height: 100%;
-}
-
-/* Fix for common parent clipping */
-main, #root, #__next {
-  overflow: visible !important;
-}
-
-/* Ensure the sticky container can actually be seen */
-.scrolly-container {
-  overflow: visible !important;
-}
-
-/* Reset any potential flexbox squishing */
-.column {
-  flex-shrink: 0;
-  display: block; /* Flexbox can sometimes mess with sticky child heights */
-}
-
 
 body {
 /*   font-family: system-ui, sans-serif; */
@@ -138,60 +111,46 @@ body {
 /* .column {
   width: 70%;
   max-width: 70%;
-  /* height: 100vh; */
-  /* display: flex;
+  /*height: 100vh;
+ display: flex;
   flex-direction: column;
-  align-items: center; */
-  /* height: auto; */
-  /* z-index: 5; */
-  /* position: relative;
+  align-items: center;
+  height: auto;
+  /* z-index: 5; 
+  position: relative;
   top: 200vh;
   text-align: left;
   overflow: visible;
   border: 3px solid red;
 } */
- .column {
+ .column{
   width: 70%;
+  max-width: 70%;
   position: relative;
-  margin-top: 200vh;
-  height: auto;
-  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  top: 200vh;
+  border: 2px solid red;
  }
 .chapter{
   width: 80%;
 }
 
-.scrolly-container {
-  position: relative;
-  height: 1200vh;
-  width: 100%;
-}
-
-.scrolly {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: visible;
-}
 .text-box {
   position: absolute;
+  top: 70%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background: var(--brightyellow);
   color: var(--darkpurple);
   padding: var(--sizel);
-  width: 80%;
-  max-width: 500px;
+  width: 90%;
   z-index: 20;
+  visibility: hidden;
 }
-.step{
-  height: 100vh;
-  width: 100%;
-  z-index: 10;
-}
+
 /* .text-box{
   background: #FFCA42;
   color: #31236F;
@@ -206,58 +165,14 @@ body {
   /* transform: translate(-50%, -50%) translateX(-150vw); */
   /* visibility: hidden;
 } */
- /* .text-box {
-  position: absolute;
-  background: #FFCA42;
-  color: #31236F;
-  padding: 2rem;
-  width: 80%;
-  max-width: 500px;
-  
-  top: 50%;
-  left: 50%;
-  
-  z-index: 100; 
-} */
 
-/* Ensure the sticky stage is actually capturing the boxes */
-/* .scrolly {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  /* width: 100%; 
-  width: 100vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transform: translateX(-50%);
-  overflow: visible;
-  border: 5px solid blue;
-} */
 
-/* .scrolly-container{
-  border: 2px solid #0f0;
-  position: relative;
-  height: 1000vh;
-  width: 100%;
-  /* z-index: 20; 
-} */
 
-/* .scrolly {
-  position: sticky;
-  top: 0;
-  height: 100vh;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-} */
 
-/* .step {
+.step {
   height: 100vh;
   outline: 1px solid lightpink;
-} */
+}
 
 #ufo {
   width: 60%;
