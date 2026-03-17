@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function() {
   themeOptions.forEach(option => {
     option.addEventListener('click', function(e) {
       e.preventDefault();
+      e.stopPropagation();
       const selectedTheme = this.dataset.theme;
       themeOptions.forEach (opt => opt.classList.remove('active'));
       this.classList.add('active');
@@ -92,7 +93,8 @@ gsap.set(".dropdown-container", {
   y: 10
 });
 
-gsap.to(".dropdown-container", 
+gsap.fromTo(".dropdown-container", 
+  {y:10},
   {
     y:-100,
     ease: "none",
@@ -101,7 +103,6 @@ gsap.to(".dropdown-container",
       start: "center center",
       end: "250vh",
       scrub: 0.8,
-      markers: true
   }
 }
 );
