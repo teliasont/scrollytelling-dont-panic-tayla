@@ -20,10 +20,14 @@
   --darkyellow:#7b601c;
   
 
-  --background:var(--darker-purple);
-  --textbg:var(--bright-yellow);
-  --textcolor:var(--dark-purple);
-  --lenscolor:var(--dark-pink);
+  --background:var(--darkestpurple);
+  --textbg:var(--brightyellow);
+  --textbg-hover: var(--lightyellow);
+  --textcolor:var(--darkpurple);
+  --lenscolor:var(--darkpink);
+  --colorswap-bright: var(--brightgreen);
+  --colorswap-light: var(--lightgreen);
+  --colorswap-bright-alt: var(--brightorange);
 
   --fonts__headingfont:Alata;
   --fonts__bodyfont:Barlow Semi Condensed;

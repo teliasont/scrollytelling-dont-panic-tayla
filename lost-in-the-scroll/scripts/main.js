@@ -40,6 +40,7 @@ const planetTween = gsap.fromTo(
     xPercent: 0,
     yPercent: -50,
     transformOrigin: "center center",
+    rotation: 25
   },
   {
     scale: 1,
@@ -88,11 +89,11 @@ function ufoFlames() {
   const fireTL = gsap.timeline({ repeat: -1 });
   fireTL
     // Show fire 1, Hide fire 2
-    .set(".fire-1", { opacity: 1 })
+    .set(".fire1", { opacity: 1 })
     .set(".fire2", { opacity: 0 })
 
     // Swap fires
-    .set(".fire-1", { opacity: 0 }, "+=0.5")
+    .set(".fire1", { opacity: 0 }, "+=0.5")
     .set(".fire2", { opacity: 1 }, "<")
 
     .set({}, {}, "+=0.5");
@@ -157,6 +158,22 @@ function flyInUFO() {
   });
 }
 
+//LENS ANIMATIONS
+function toggleLens(isOpen) {
+  const shutterTL = gsap.timeline();
+  shutterTL.to(".shutter-left", {
+    x: isOpen ? -300 : 0, // Moves left lens
+    duration: 1,
+    ease: "power2.inOut"
+  }, 0)
+  .to(".shutter-right", {
+    x: isOpen ? 300 : 0, // Moves right lens
+    duration: 1,
+    ease: "power2.inOut"
+  }, 0);
+  return shutterTL;
+}
+
 //TEXT BOX ANIMATIONS + TRIGGERING EFFECTS BASED ON BOXES
 const boxes = gsap.utils.toArray(".text-box");
 const boxTL = gsap.timeline({
@@ -197,6 +214,30 @@ boxes.forEach((box, i) => {
       duration: 1.25,
       ease: "power2.out"
     }, `box_${i}_in`); 
+    boxTL.add(toggleLens(true), `box_${i}_in+=0.5`); 
+  }
+  if (i===6){
+    boxTL.add(toggleLens(false), `box_${i}_in-=0.5`);
+    boxTL.to("#planet", {rotation:"-=5"}, `box_${i}_in+=0.25`);
+    boxTL.add(toggleLens(true), `box_${i}_in+=0.5`);
+  }
+  if (i===12){
+    boxTL.add(toggleLens(false), `box_${i}_in-=0.5`);
+    boxTL.to("#planet", {rotation:"-=25"}, `box_${i}_in+=0.25`);
+    boxTL.add(toggleLens(true), `box_${i}_in+=0.5`);
+  }
+  if (i===16){
+    boxTL.add(toggleLens(false), `box_${i}_in-=0.5`);
+    boxTL.to("#planet", {rotation:"-=105", duration: 1.25}, `box_${i}_in+=0.25`);
+    boxTL.add(toggleLens(true), `box_${i}_in+=0.5`);
+  }
+  if (i===19){
+    boxTL.add(toggleLens(false), `box_${i}_in-=0.5`);
+    boxTL.to("#planet", {rotation:"-=20"}, `box_${i}_in+=0.25`);
+    boxTL.add(toggleLens(true), `box_${i}_in+=0.5`);
+  }
+  if (i===23){
+    boxTL.to("#planet", {rotation:"-=5"}, `box_${i}_in+=0.25`);
   }
   if(i===25){ //moves lens off screen
     boxTL.to("#lens", {
@@ -204,6 +245,7 @@ boxes.forEach((box, i) => {
       duration: 1.25,
       ease: "power2.in" // Smoothly exit
     }, `box_${i}_in`); 
+    boxTL.add(toggleLens(false), `box_${i}_in-=1`); 
   }
 
   boxTL.fromTo(

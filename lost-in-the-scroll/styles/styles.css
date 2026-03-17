@@ -14,14 +14,15 @@ html {
 body {
   /*   font-family: system-ui, sans-serif; */
   color: #f0f0f0;
-  background: #1a1a2e;
+  background: var(--background);
   font-family: "Barlow Semi Condensed", system-ui, sans-serif;
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   height: auto;
 }
 .hidden {
   display: none;
 }
+
 
  /*BACKGROUND & PARALLEX ELEMENTS*/
 .star-container {
@@ -84,10 +85,10 @@ body {
 }
 .fg-text {
   text-align: center;
-  text-shadow: 2px 2px #1a1a2e;
+  text-shadow: 2px 2px var(--background);
   position: absolute;
   top: 50vh;
-  color: #ffca42;
+  color: var(--textbg);
 }
 .fg-heading {
   font-size: 4rem;
@@ -135,8 +136,8 @@ body {
   position: absolute;
   top: 70%;
   left: 50%;
-  background: var(--brightyellow);
-  color: var(--darkpurple);
+  background: var(--textbg);
+  color: var(--textcolor);
   padding: var(--sizel);
   width: 90%;
   z-index: 20;
@@ -157,15 +158,26 @@ body {
   position: relative;
 }
 
-.fire1,
 .fire2 {
   transform-origin: top center;
-  transform: translateY(-80px);
-}
-.fire2 {
+  transform: translateY(-100px);
   transform: translateX(-149px);
 }
-
+.fire1, .fire2 {
+  stroke: var(--colorswap-light);
+}
+.brightgreen{
+  fill: var(--colorswap-bright);
+}
+.brightorange{
+  fill: var(--colorswap-bright-alt);
+}
+.dome-reflection{
+  fill: var(--colorswap-light);
+}
+.lens-body{
+  fill: var(--lenscolor);
+}
 
 /* BOTTOM ELEMENTS */
 
@@ -186,8 +198,8 @@ body {
   bottom: var(--sizexl);
   right: var(--sizexl);
   padding: 15px 25px;
-  background-color: var(--brightyellow);
-  color: var(--darkpurple);
+  background-color: var(--textbg);
+  color: var(--textcolor);
   border: none;
   cursor: pointer;
   z-index: 200;
@@ -201,11 +213,11 @@ body {
 
 .return-to-top:hover {
   transform: scale(1.1);
-  background-color: var(--lightyellow);
+  background-color: var(--textbg-hover);
 }
 
 footer p{
-  color: var(--brightyellow);
+  color: var(--textbg);
   text-align: center;
   margin-bottom: 4rem;
 }
