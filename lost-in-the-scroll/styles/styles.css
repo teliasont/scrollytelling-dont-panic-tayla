@@ -22,6 +22,66 @@ body {
 .hidden {
   display: none;
 }
+/* THEME SWITCHER MENU */
+.dropdown-container {
+  color: var(--textcolor);
+  width: fit-content;
+  min-width: 80px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: var(--textbg);
+  text-align: center;
+}
+.menu-label {
+  font-weight: 600;
+  background-color: var(--textbg);
+  cursor: pointer;
+   transition: all 0.4s ease;
+   width: 100%;
+  padding: var(--sizexs);
+}
+.dropdown-options {
+  display: none;
+  position: absolute;
+  background-color: var(--textbg);
+  color: var(--textcolor);
+  border: 1px solid (--textcolor);
+  width: 100%;
+  box-shadow: 0px 10px 16px 0px rgba(0,0,0,0.2);
+  top: calc(100% + 5px);
+  overflow: hidden;
+  z-index: 100;
+}
+.dropdown-container.open .dropdown-options {
+  display: flex;
+  flex-direction: column;
+}
+.theme-btn {
+  border: inherit;
+  background: none;
+  color: inherit;
+  border-top: 1px solid var(--darkestpurple);
+  padding: var(--sizexs);
+  width: 100%;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+.theme-btn:hover {
+  background-color: var(--lightgreen);
+  color: var(--darkpurple);
+}
+.theme-btn.active {
+  background-color: var(--brightgreen);
+  color: var(--darkpurple);
+}
+
+
+
+
 
 
  /*BACKGROUND & PARALLEX ELEMENTS*/

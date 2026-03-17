@@ -1,3 +1,59 @@
+//THEME SWITCHER
+
+const themeToggle = document.getElementById("theme-toggle");
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  document.documentElement.dataset.theme = savedTheme;
+}
+else {
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
+}
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
+  if (!localStorage.getItem("theme")) { // Only if in "System" mode
+    document.documentElement.dataset.theme = e.matches ? "dark" : "light";
+  }
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+  const dropdown = document.querySelector('.dropdown-container');
+  const menuLabel = dropdown.querySelector('.menu-label');
+  // Target the new class name
+  const themeOptions = document.querySelectorAll('.theme-btn');
+
+  menuLabel.addEventListener('click', function(e) {
+    e.stopPropagation();
+    dropdown.classList.toggle('open');
+  });
+
+  document.addEventListener('click', function(e){
+    if(!dropdown.contains(e.target)){
+      dropdown.classList.remove('open');
+    }
+  });
+
+  themeOptions.forEach(option => {
+    option.addEventListener('click', function(e) {
+      e.preventDefault();
+      const selectedTheme = this.dataset.theme;
+      themeOptions.forEach (opt => opt.classList.remove('active'));
+      this.classList.add('active');
+      if (selectedTheme === "system") {
+        localStorage.removeItem("theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
+      } else {
+        document.documentElement.dataset.theme = selectedTheme;
+        localStorage.setItem("theme", selectedTheme);
+    }
+    dropdown.classList.remove('open');
+  });
+});
+});
+
+
+//GSAP ANIMATIONS
 gsap.registerPlugin(ScrollTrigger);
 
 //Generate a long string of randomly placed stars
@@ -31,6 +87,25 @@ document.getElementById("stars3").style.boxShadow = generateStars(
 );
 
 // INTRO ELEMENTS
+gsap.set(".dropdown-container", {
+  x: 10,
+  y: 10
+});
+
+gsap.to(".dropdown-container", 
+  {
+    y:-100,
+    ease: "none",
+    scrollTrigger: {
+      trigger: "#planet",
+      start: "center center",
+      end: "250vh",
+      scrub: 0.8,
+      markers: true
+  }
+}
+);
+
 
 // Planet zooming in effect.
 const planetTween = gsap.fromTo(

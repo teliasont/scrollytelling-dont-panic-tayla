@@ -28,6 +28,7 @@
   --colorswap-bright: var(--brightgreen);
   --colorswap-light: var(--lightgreen);
   --colorswap-bright-alt: var(--brightorange);
+  --starscolor: #FFF;
 
   --fonts__headingfont:Alata;
   --fonts__bodyfont:Barlow Semi Condensed;
@@ -43,4 +44,33 @@
   --sizel:32px;
   --sizexl:48px;
   --sizexxl:64px;
+}
+
+
+/* LIGHT MODE */
+[data-theme="light"] {
+  --background:var(--brightyellow);
+  --textbg:var(--darkpurple);
+  --textbg-hover: var(--darkestpurple);
+  --textcolor:var(--brightyellow);
+  --lenscolor:var(--mediumpink);
+  --colorswap-bright: var(--brightgreen);
+  --colorswap-light: var(--lightgreen);
+  --colorswap-bright-alt: var(--brightorange);
+  --starscolor: var(--darkpurple);
+
+}
+
+/* DARK MODE */
+[data-theme="dark"] {
+   --background:var(--darkestpurple);
+  --textbg:var(--brightyellow);
+  --textbg-hover: var(--lightyellow);
+  --textcolor:var(--darkpurple);
+  --lenscolor:var(--darkpink);
+  --colorswap-bright: var(--brightgreen);
+  --colorswap-light: var(--lightgreen);
+  --colorswap-bright-alt: var(--brightorange);
+  --starscolor: #FFF;
+
 }
