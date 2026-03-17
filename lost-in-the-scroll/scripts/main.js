@@ -120,7 +120,7 @@ function flyInUFO() {
     .to(
       "#ufo",
       {
-        y: "-=30",
+        y: "+=30",
         duration: 2,
         repeat: -1,
         yoyo: true,
@@ -131,9 +131,9 @@ function flyInUFO() {
 
   ScrollTrigger.create({
     trigger: ".column",
-    start: "top 30vh",
+    start: "top top",
     end: "bottom bottom",
-    pin: ["#ufo"],
+    pin: "#ufo",
     pinSpacing: false,
   });
 }
@@ -149,7 +149,7 @@ const boxTL = gsap.timeline({
   scrollTrigger: {
     trigger: ".column",
     start: "top top",
-    end: "+=8000", // Adjust this value based on the total scroll length you want for all boxes
+    end: () => `+=${boxes.length * 1500}`, // Adjust this value based on the total scroll length you want for all boxes
     pin: true,
     scrub: 1,
     pinSpacing: true,
@@ -165,7 +165,7 @@ const boxTL = gsap.timeline({
 
 boxes.forEach((box, i) => {
   const isFirst = i === 0; //check if this is the first box. Boolean value.?
-
+  const isLast = i === boxes.length - 1; //check if this is the last box. Boolean value.?
   boxTL.addLabel(`box_${i}_in`); // Add a label for snapping
   boxTL.fromTo(
     box,
@@ -176,7 +176,7 @@ boxes.forEach((box, i) => {
     {
       x: "0%",
       autoAlpha: 1,
-      duration: 2,
+      duration: 0.5,
       ease: "power2.out", //move onto screen and become visible
     },
     isFirst ? "+=0" : "+=0.5",
@@ -189,11 +189,14 @@ boxes.forEach((box, i) => {
       {
         x: "-150vw",
         autoAlpha: 0,
-        duration: 2,
+        duration: 0.5,
         ease: "power2.in", //exit to the left again
       },
-      "+=5",
+      "+=0.5",
     );
+    if (isLast) {
+    boxTL.to({}, { duration: 5 }); 
+  }
 });
 
 const starTL = gsap.timeline({
@@ -207,14 +210,14 @@ const starTL = gsap.timeline({
 starTL
   .to("#stars", { y: -150, ease: "none" }, 0)
   .to("#stars2", { y: -300, ease: "none" }, "<")
-  .to("stars3", { y: -450, ease: "none" }, "<");
+  .to("#stars3", { y: -450, ease: "none" }, "<");
 
 ScrollTrigger.create({
   trigger: ".star-container",
   start: "250vh top",
   end: "bottom bottom",
-  pin: ["#stars", "#stars2", "#stars3"],
-  pinSpacing: false,
+  // pin: ["#stars", "#stars2", "#stars3"],
+  // pinSpacing: false,
 });
 
 //Planet spins on scroll trigger per section
@@ -225,9 +228,10 @@ const planetExitTL = gsap.timeline({
   scrollTrigger: {
     trigger: ".spacer",
     start: "top bottom", // Starts as soon as the spacer enters the screen
-    end: "bottom bottom",
+    end: "top 20%", // Ends when the spacer reaches the top of the viewport
     scrub: 0.8,
-  },
+    markers: true
+  }
 });
 
 planetExitTL.fromTo(
@@ -245,17 +249,36 @@ planetExitTL.fromTo(
     transformOrigin: "center center",
   },
   0,
-);
+)
 //UFO leaves at the same time as the planet.
-planetExitTL.to(
+.to(
   "#ufo",
   {
     x: -1200, 
     y: 100,
     rotation: -15,
-    duration: 0.8,
+    duration: 0.5,
     ease: "power2.in",
   },
-  0
+  "-=1"
 );
 
+//maybe modify this or put it on a seperate tween so the star parallax scrolls out longer.
+planetExitTL
+  .to("#stars",  { y: -10, ease: "none" }, 0)  // Subtle movement for the background
+  .to("#stars2", { y: -100, ease: "none" }, 0)  // Medium movement
+  .to("#stars3", { y: -200, ease: "none" }, 0); // Fast movement for the foreground
+
+  const returnButton = document.querySelector(".return-to-top");
+gsap.set(returnButton, { x: "150vw" }); // Initially hide the button
+  returnButton.addEventListener("click", () => {
+    gsap.to(window, { scrollTo: 0, duration: 3, ease: "power4.inOut" });
+  });
+  gsap.to(returnButton, {autoAlpha: 1, x: 0,
+    scrollTrigger: {
+      trigger: ".spacer",
+      start: "top 50%",
+      end: "bottom bottom",
+      toggleActions: "play reverse play reverse"
+    }
+});

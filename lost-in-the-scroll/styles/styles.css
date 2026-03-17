@@ -154,16 +154,17 @@ body {
 
 .spacer {
   position: relative;
-
-  height: 100vh;
+   z-index: 100;
+  min-height: 100vh;
+  height: 200vh;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 0;
-  z-index: 100;
+  top:0;
   opacity: 70%;
   border: 2px solid #0f0;
-  /* background-color: dodgerblue; */
+  background-color: dodgerblue; 
 
 }
 /* .text-box{
@@ -183,11 +184,6 @@ body {
 
 
 
-
-.step {
-  height: 100vh;
-  outline: 1px solid lightpink;
-}
 
 #ufo {
   width: 60%;
@@ -224,4 +220,26 @@ body {
 }
 #lens image {
   display: none;
+}
+
+
+.return-to-top {
+  position: fixed;
+  bottom: var(--sizexl);
+  right: var(--sizexl);
+  padding: 15px 25px;
+  background-color: var(--brightyellow); 
+  color: var(--darkpurple);
+  border: none;
+  cursor: pointer;
+  z-index: 200; /* Higher than the spacer */
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+}
+
+.return-to-top:hover {
+  transform: scale(1.1);
+  background-color: var(--lightyellow);
 }
