@@ -154,11 +154,20 @@ const boxTL = gsap.timeline({
     scrub: 1,
     pinSpacing: true,
     aniticipatePin: 1,
-    snap: {
-      snapTo: "labels",
+    snap: { //Gemini helped with the snapping to prevent the last box from being so sticky.
+      snapTo: (value, self) => {
+    const labels = self.getLabels();
+    const labelValues = Object.values(labels);
+    
+    // Remove the last 2 labels (the 'in' and 'hold' for the final box)
+    // from the snapping logic so the footer can flow freely.
+    const filteredLabels = labelValues.slice(0, -2); 
+    
+    return gsap.utils.snap(filteredLabels, value);
+  },
       duration: { min: 0.2, max: 0.8 }, // How fast the snap happens
       delay: 0.1, // Wait a tiny bit after scroll stops before snapping
-      ease: "power1.inOut",
+      ease: "power1.inOut"
     },
   },
 });
@@ -167,6 +176,15 @@ boxes.forEach((box, i) => {
   const isFirst = i === 0; //check if this is the first box. Boolean value.?
   const isLast = i === boxes.length - 1; //check if this is the last box. Boolean value.?
   boxTL.addLabel(`box_${i}_in`); // Add a label for snapping
+
+  if (i === 4) {
+    boxTL.to("#lens", {
+      top: "0%", // Drop to the top of the screen
+      duration: 1.25,
+      ease: "power2.out" // Gives it a nice physical 'thud'
+    }, `box_${i}_in`); // Start exactly when Box 4 starts moving in
+  }
+
   boxTL.fromTo(
     box,
     {
@@ -195,7 +213,7 @@ boxes.forEach((box, i) => {
       "+=0.5",
     );
     if (isLast) {
-    boxTL.to({}, { duration: 5 }); 
+    boxTL.to({}, { duration: 4 }); 
   }
 });
 
@@ -220,6 +238,21 @@ ScrollTrigger.create({
   // pinSpacing: false,
 });
 
+gsap.from("#lens", {
+  y: -200,
+  autoAlpha: 0,
+  duration: 1.5,
+  ease: "power2.out",
+  markers: true,
+  scrollTrigger: {
+    trigger: ".variables",
+    start: "top 80%",
+    end: "top 50%",
+    scrub: 0.8,
+  },
+});
+
+
 //Planet spins on scroll trigger per section
 
 //lens drops down at end of opening section.
@@ -228,9 +261,9 @@ const planetExitTL = gsap.timeline({
   scrollTrigger: {
     trigger: ".spacer",
     start: "top bottom", // Starts as soon as the spacer enters the screen
-    end: "top 20%", // Ends when the spacer reaches the top of the viewport
+    end: "top 50%", // Ends when the spacer reaches the top of the viewport
     scrub: 0.8,
-    markers: true
+    
   }
 });
 
