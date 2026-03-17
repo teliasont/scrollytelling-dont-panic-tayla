@@ -156,7 +156,7 @@ body {
   position: relative;
    z-index: 100;
   min-height: 100vh;
-  height: 200vh;
+  height: 250vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -164,7 +164,7 @@ body {
   top:0;
   opacity: 70%;
   border: 2px solid #0f0;
-  background-color: dodgerblue; 
+  /* background-color: dodgerblue;  */
 
 }
 /* .text-box{

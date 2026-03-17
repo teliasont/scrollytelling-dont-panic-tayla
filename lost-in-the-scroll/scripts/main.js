@@ -184,6 +184,13 @@ boxes.forEach((box, i) => {
       ease: "power2.out" // Gives it a nice physical 'thud'
     }, `box_${i}_in`); // Start exactly when Box 4 starts moving in
   }
+  if(i===25){
+    boxTL.to("#lens", {
+      top: "-100%", // Move back up off the screen
+      duration: 1.25,
+      ease: "power2.in" // Smoothly exit
+    }, `box_${i}_in`); // Start exactly when Box 25 starts moving in
+  }
 
   boxTL.fromTo(
     box,
@@ -238,19 +245,19 @@ ScrollTrigger.create({
   // pinSpacing: false,
 });
 
-gsap.from("#lens", {
-  y: -200,
-  autoAlpha: 0,
-  duration: 1.5,
-  ease: "power2.out",
-  markers: true,
-  scrollTrigger: {
-    trigger: ".variables",
-    start: "top 80%",
-    end: "top 50%",
-    scrub: 0.8,
-  },
-});
+// gsap.from("#lens", {
+//   y: -200,
+//   autoAlpha: 0,
+//   duration: 1.5,
+//   ease: "power2.out",
+//   markers: true,
+//   scrollTrigger: {
+//     trigger: ".variables",
+//     start: "top 80%",
+//     end: "top 50%",
+//     scrub: 0.8,
+//   },
+// });
 
 
 //Planet spins on scroll trigger per section
@@ -296,11 +303,18 @@ planetExitTL.fromTo(
   "-=1"
 );
 
-//maybe modify this or put it on a seperate tween so the star parallax scrolls out longer.
-planetExitTL
-  .to("#stars",  { y: -10, ease: "none" }, 0)  // Subtle movement for the background
-  .to("#stars2", { y: -100, ease: "none" }, 0)  // Medium movement
-  .to("#stars3", { y: -200, ease: "none" }, 0); // Fast movement for the foreground
+const starExitTL = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".spacer",
+    start: "top bottom", // Starts as soon as the spacer enters the screen
+    end: "bottom bottom", // Ends when the spacer reaches the top of the viewport
+    scrub: 0.8,
+  }
+});
+starExitTL
+  .to("#stars",  { y: -200, ease: "none" }, 0)  // Subtle movement for the background
+  .to("#stars2", { y: -450, ease: "none" }, 0)  // Medium movement
+  .to("#stars3", { y: -600, ease: "none" }, 0); // Fast movement for the foreground
 
   const returnButton = document.querySelector(".return-to-top");
   returnButton.addEventListener("click", () => {
