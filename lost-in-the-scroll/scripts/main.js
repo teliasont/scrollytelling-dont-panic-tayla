@@ -74,7 +74,6 @@ function ufoFlames() {
     .set(".fire-1", { opacity: 0 }, "+=0.5")
     .set(".fire2", { opacity: 1 }, "<")
 
-    // Pause before looping back to the start so it's an even transition, and not strobing
     .set({}, {}, "+=0.5");
 }
 
@@ -83,7 +82,6 @@ function flyInUFO() {
 
   const ufoTL = gsap.timeline();
   ufoFlames();
-  // Initial setup
   gsap.set("#ufo", { opacity: 1, x: -1200, y: 100, rotation: -5 });
 
   ufoTL
@@ -149,7 +147,7 @@ const boxTL = gsap.timeline({
   scrollTrigger: {
     trigger: ".column",
     start: "top top",
-    end: () => `+=${boxes.length * 1500}`, // Adjust this value based on the total scroll length you want for all boxes
+    end: () => `+=${boxes.length * 1500}`, // Adjust this based on the total scroll length for the page/boxes
     pin: true,
     scrub: 1,
     pinSpacing: true,
@@ -165,31 +163,31 @@ const boxTL = gsap.timeline({
     
     return gsap.utils.snap(filteredLabels, value);
   },
-      duration: { min: 0.2, max: 0.8 }, // How fast the snap happens
-      delay: 0.1, // Wait a tiny bit after scroll stops before snapping
+      duration: 0.5, 
+      delay: 0.1, 
       ease: "power1.inOut"
     },
   },
 });
 
 boxes.forEach((box, i) => {
-  const isFirst = i === 0; //check if this is the first box. Boolean value.?
-  const isLast = i === boxes.length - 1; //check if this is the last box. Boolean value.?
+  const isFirst = i === 0; 
+  const isLast = i === boxes.length - 1; 
   boxTL.addLabel(`box_${i}_in`); // Add a label for snapping
 
-  if (i === 4) {
+  if (i === 4) { //moves lens on screen
     boxTL.to("#lens", {
-      top: "0%", // Drop to the top of the screen
+      top: "0%", 
       duration: 1.25,
-      ease: "power2.out" // Gives it a nice physical 'thud'
-    }, `box_${i}_in`); // Start exactly when Box 4 starts moving in
+      ease: "power2.out"
+    }, `box_${i}_in`); 
   }
-  if(i===25){
+  if(i===25){ //moves lens off screen
     boxTL.to("#lens", {
-      top: "-100%", // Move back up off the screen
+      top: "-100%", 
       duration: 1.25,
       ease: "power2.in" // Smoothly exit
-    }, `box_${i}_in`); // Start exactly when Box 25 starts moving in
+    }, `box_${i}_in`); 
   }
 
   boxTL.fromTo(
@@ -199,7 +197,8 @@ boxes.forEach((box, i) => {
       autoAlpha: 0, //start off screen to the left and invisible
     },
     {
-      x: "0%",
+      x: 0,
+      xPercent: -50,
       autoAlpha: 1,
       duration: 0.5,
       ease: "power2.out", //move onto screen and become visible
@@ -241,23 +240,9 @@ ScrollTrigger.create({
   trigger: ".star-container",
   start: "250vh top",
   end: "bottom bottom",
-  // pin: ["#stars", "#stars2", "#stars3"],
-  // pinSpacing: false,
+ 
 });
 
-// gsap.from("#lens", {
-//   y: -200,
-//   autoAlpha: 0,
-//   duration: 1.5,
-//   ease: "power2.out",
-//   markers: true,
-//   scrollTrigger: {
-//     trigger: ".variables",
-//     start: "top 80%",
-//     end: "top 50%",
-//     scrub: 0.8,
-//   },
-// });
 
 
 //Planet spins on scroll trigger per section
@@ -267,8 +252,8 @@ ScrollTrigger.create({
 const planetExitTL = gsap.timeline({
   scrollTrigger: {
     trigger: ".spacer",
-    start: "top bottom", // Starts as soon as the spacer enters the screen
-    end: "top 50%", // Ends when the spacer reaches the top of the viewport
+    start: "top bottom",
+    end: "top 50%", 
     scrub: 0.8,
     
   }
@@ -306,28 +291,24 @@ planetExitTL.fromTo(
 const starExitTL = gsap.timeline({
   scrollTrigger: {
     trigger: ".spacer",
-    start: "top bottom", // Starts as soon as the spacer enters the screen
-    end: "bottom bottom", // Ends when the spacer reaches the top of the viewport
+    start: "top bottom", 
+    end: "bottom bottom", 
     scrub: 0.8,
   }
 });
 starExitTL
-  .to("#stars",  { y: -200, ease: "none" }, 0)  // Subtle movement for the background
-  .to("#stars2", { y: -450, ease: "none" }, 0)  // Medium movement
-  .to("#stars3", { y: -600, ease: "none" }, 0); // Fast movement for the foreground
+  .to("#stars",  { y: -200, ease: "none" }, 0)  
+  .to("#stars2", { y: -450, ease: "none" }, 0)  
+  .to("#stars3", { y: -600, ease: "none" }, 0); 
 
   const returnButton = document.querySelector(".return-to-top");
   returnButton.addEventListener("click", () => {
   window.scrollTo({
     top: 0,
-    behavior: 'smooth' // This provides the animated glide
+    behavior: 'smooth' 
   });
 });
-  //requires ScrollToPlugin to work
-// gsap.set(returnButton, { x: "150vw" }); // Initially hide the button
-//   returnButton.addEventListener("click", () => {
-//     gsap.to(window, { scrollTo: 0, duration: 3, ease: "power4.inOut" });
-//   });
+
   gsap.to(returnButton, {autoAlpha: 1, x: 0,
     scrollTrigger: {
       trigger: ".spacer",

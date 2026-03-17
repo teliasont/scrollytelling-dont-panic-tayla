@@ -1,8 +1,6 @@
 @import "./variables.css";
 @import "./reset.css";
 
-
-
 /*STARTER CODE*/
 * {
   margin: 0;
@@ -14,15 +12,13 @@ html {
 }
 
 body {
-/*   font-family: system-ui, sans-serif; */
+  /*   font-family: system-ui, sans-serif; */
   color: #f0f0f0;
   background: #1a1a2e;
   font-family: "Barlow Semi Condensed", system-ui, sans-serif;
   font-size: 1.2rem;
   height: auto;
 }
-
-
 
 .star-container {
   position: relative;
@@ -38,7 +34,6 @@ body {
   /* overflow: hidden; */
 }
 
-
 /* All layers fill the scene */
 .layer {
   position: absolute;
@@ -49,26 +44,28 @@ body {
 }
 
 .star-layer {
-  position: fixed; 
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100vh;
-    pointer-events: none;
+  pointer-events: none;
   z-index: -1;
 }
-#stars, #stars2, #stars3 {
+#stars,
+#stars2,
+#stars3 {
   overflow: visible;
   position: fixed;
 }
 
 /* Background layer */
 #stars {
-  width: 1px; 
+  width: 1px;
   height: 1px;
 }
 #stars2 {
-  width: 2px; 
+  width: 2px;
   height: 2px;
 }
 
@@ -78,7 +75,7 @@ body {
   z-index: 4;
 }
 #stars3 {
-  width: 3px; 
+  width: 3px;
   height: 3px;
 }
 .fg-text {
@@ -86,14 +83,14 @@ body {
   text-shadow: 2px 2px #1a1a2e;
   position: absolute;
   top: 50vh;
-  color: #FFCA42;
+  color: #ffca42;
 }
 .fg-heading {
   font-size: 4rem;
   font-weight: 900;
 }
 
-#planet{
+#planet {
   height: 150vh;
   position: fixed;
   top: 50%;
@@ -105,36 +102,17 @@ body {
   display: none;
 }
 
-
 /*INTRO UFO SECTION*/
-/* .column {
-  width: 70%;
-  max-width: 70%;
-  /*height: 100vh;
- display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: auto;
-  /* z-index: 5; 
-  position: relative;
-  top: 200vh;
-  text-align: left;
-  overflow: visible;
-  border: 3px solid red;
-} */
- .column{
+.column {
   width: 70%;
   max-width: 70%;
   position: relative;
   height: auto;
-  /* display: flex;
-  flex-direction: column;
-  align-items: center; */
   min-height: 100vh;
   top: 200vh;
   /* border: 2px solid red; */
- }
-.chapter{
+}
+.chapter {
   width: 80%;
 }
 
@@ -142,7 +120,6 @@ body {
   position: absolute;
   top: 70%;
   left: 50%;
-  transform: translate(-50%, -50%);
   background: var(--brightyellow);
   color: var(--darkpurple);
   padding: var(--sizel);
@@ -151,39 +128,18 @@ body {
   visibility: hidden;
 }
 
-
 .spacer {
   position: relative;
-   z-index: 100;
+  z-index: 100;
   min-height: 100vh;
   height: 250vh;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-top: 0;
-  top:0;
+  top: 0;
   opacity: 70%;
-  /* border: 2px solid #0f0; */
-  /* background-color: dodgerblue;  */
-
 }
-/* .text-box{
-  background: #FFCA42;
-  color: #31236F;
-  padding: var(--sizel);
-  width: 90%;
-  margin: 32px auto;
-
-  position: absolute;
-  top: 70%;
-  left: 50%;
-  /* transform: translate(-50%, -50%); */
-  /* transform: translate(-50%, -50%) translateX(-150vw); */
-  /* visibility: hidden;
-} */
-
-
-
 
 #ufo {
   width: 60%;
@@ -191,22 +147,22 @@ body {
   margin-left: auto;
   margin-right: auto;
   height: auto;
-  min-height: 200px; 
-  flex-shrink: 0; 
+  min-height: 200px;
+  flex-shrink: 0;
   overflow: visible;
   will-change: transform;
   z-index: 10;
   position: relative;
 
   /* margin: 0 auto; */
-  
 }
 
-.fire1, .fire2 {
+.fire1,
+.fire2 {
   transform-origin: top center;
   transform: translateY(-80px);
 }
-.fire2{
+.fire2 {
   transform: translateX(-149px);
 }
 
@@ -222,21 +178,22 @@ body {
   display: none;
 }
 
-
 .return-to-top {
   position: fixed;
   bottom: var(--sizexl);
   right: var(--sizexl);
   padding: 15px 25px;
-  background-color: var(--brightyellow); 
+  background-color: var(--brightyellow);
   color: var(--darkpurple);
   border: none;
   cursor: pointer;
-  z-index: 200; /* Higher than the spacer */
+  z-index: 200;
   opacity: 0;
   visibility: hidden;
-  transition: transform 0.3s ease, background-color 0.3s ease;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+  transition:
+    transform 0.3s ease,
+    background-color 0.3s ease;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
 }
 
 .return-to-top:hover {
