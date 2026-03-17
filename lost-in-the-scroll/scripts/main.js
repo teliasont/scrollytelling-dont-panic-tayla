@@ -291,10 +291,12 @@ const boxTL = gsap.timeline({
   },
 });
 
+
 boxes.forEach((box, i) => {
   const isFirst = i === 0; 
   const isLast = i === boxes.length - 1; 
   boxTL.addLabel(`box_${i}_in`); // Add a label for snapping
+  boxTL.set(box, {y:-80});
 
   if (i === 4) { //moves lens on screen
     boxTL.to("#lens", {
