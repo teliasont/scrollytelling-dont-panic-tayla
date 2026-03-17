@@ -303,10 +303,17 @@ planetExitTL
   .to("#stars3", { y: -200, ease: "none" }, 0); // Fast movement for the foreground
 
   const returnButton = document.querySelector(".return-to-top");
-gsap.set(returnButton, { x: "150vw" }); // Initially hide the button
   returnButton.addEventListener("click", () => {
-    gsap.to(window, { scrollTo: 0, duration: 3, ease: "power4.inOut" });
+  window.scrollTo({
+    top: 0,
+    behavior: 'smooth' // This provides the animated glide
   });
+});
+  //requires ScrollToPlugin to work
+// gsap.set(returnButton, { x: "150vw" }); // Initially hide the button
+//   returnButton.addEventListener("click", () => {
+//     gsap.to(window, { scrollTo: 0, duration: 3, ease: "power4.inOut" });
+//   });
   gsap.to(returnButton, {autoAlpha: 1, x: 0,
     scrollTrigger: {
       trigger: ".spacer",
