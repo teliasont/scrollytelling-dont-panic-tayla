@@ -30,6 +30,8 @@ document.getElementById("stars3").style.boxShadow = generateStars(
   pageHeight,
 );
 
+// INTRO ELEMENTS
+
 // Planet zooming in effect.
 const planetTween = gsap.fromTo(
   "#planet",
@@ -61,10 +63,29 @@ const planetTween = gsap.fromTo(
     },
   },
 );
+const starTL = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".fg-text",
+    start: "center center",
+    end: "225vh",
+    scrub: 0.8,
+  },
+});
+//Star parallax effect
+starTL
+  .to("#stars", { y: -150, ease: "none" }, 0)
+  .to("#stars2", { y: -300, ease: "none" }, "<")
+  .to("#stars3", { y: -450, ease: "none" }, "<");
 
+ScrollTrigger.create({
+  trigger: ".star-container",
+  start: "250vh top",
+  end: "bottom bottom",
+});
+
+//UFO ANIMATIONS INTRO
 function ufoFlames() {
   const fireTL = gsap.timeline({ repeat: -1 });
-
   fireTL
     // Show fire 1, Hide fire 2
     .set(".fire-1", { opacity: 1 })
@@ -136,13 +157,8 @@ function flyInUFO() {
   });
 }
 
-//Thoughts.
-//Use a for loop from text box 0 to the last one (whatever that number is)
-//Call for box-1, for example to fly in on scroll. It will remain until the user scrolls again. At that point, it will fly out and the following text box will zoom in.
-//Repeat until the last text box. The last text box will remain until the end of the scroll, and then fly out at the end of the scroll.
-
+//TEXT BOX ANIMATIONS + TRIGGERING EFFECTS BASED ON BOXES
 const boxes = gsap.utils.toArray(".text-box");
-
 const boxTL = gsap.timeline({
   scrollTrigger: {
     trigger: ".column",
@@ -223,25 +239,7 @@ boxes.forEach((box, i) => {
   }
 });
 
-const starTL = gsap.timeline({
-  scrollTrigger: {
-    trigger: ".fg-text",
-    start: "center center",
-    end: "225vh",
-    scrub: 0.8,
-  },
-});
-starTL
-  .to("#stars", { y: -150, ease: "none" }, 0)
-  .to("#stars2", { y: -300, ease: "none" }, "<")
-  .to("#stars3", { y: -450, ease: "none" }, "<");
 
-ScrollTrigger.create({
-  trigger: ".star-container",
-  start: "250vh top",
-  end: "bottom bottom",
- 
-});
 
 
 
@@ -249,6 +247,8 @@ ScrollTrigger.create({
 
 //lens drops down at end of opening section.
 
+
+//EXIT ANIMATIONS
 const planetExitTL = gsap.timeline({
   scrollTrigger: {
     trigger: ".spacer",
@@ -309,6 +309,7 @@ starExitTL
   });
 });
 
+//BUTTON APPEARS
   gsap.to(returnButton, {autoAlpha: 1, x: 0,
     scrollTrigger: {
       trigger: ".spacer",

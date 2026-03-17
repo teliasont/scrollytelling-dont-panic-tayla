@@ -8,7 +8,7 @@
   box-sizing: border-box;
 }
 html {
-  scroll-behavior: auto !important; /* Let GSAP handle the movement */
+  scroll-behavior: auto !important; 
 }
 
 body {
@@ -19,7 +19,11 @@ body {
   font-size: 1.2rem;
   height: auto;
 }
+.hidden {
+  display: none;
+}
 
+ /*BACKGROUND & PARALLEX ELEMENTS*/
 .star-container {
   position: relative;
   height: auto;
@@ -90,6 +94,7 @@ body {
   font-weight: 900;
 }
 
+/* PLANET */
 #planet {
   height: 150vh;
   position: fixed;
@@ -98,11 +103,21 @@ body {
   z-index: 3;
 }
 
-.hidden {
+/* LENS */
+#lens {
+  position: fixed;
+  top: -100%;
+  right: 0;
+  z-index: 10;
+  width: 25%;
+  height: fit-content;
+}
+#lens image {
   display: none;
 }
 
-/*INTRO UFO SECTION*/
+
+/*INTRO UFO SECTION & TEXT COLUMN*/
 .column {
   width: 70%;
   max-width: 70%;
@@ -128,19 +143,6 @@ body {
   visibility: hidden;
 }
 
-.spacer {
-  position: relative;
-  z-index: 100;
-  min-height: 100vh;
-  height: 250vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 0;
-  top: 0;
-  opacity: 70%;
-}
-
 #ufo {
   width: 60%;
   display: block;
@@ -153,8 +155,6 @@ body {
   will-change: transform;
   z-index: 10;
   position: relative;
-
-  /* margin: 0 auto; */
 }
 
 .fire1,
@@ -166,18 +166,21 @@ body {
   transform: translateX(-149px);
 }
 
-#lens {
-  position: fixed;
-  top: -100%;
-  right: 0;
-  z-index: 10;
-  width: 25%;
-  height: fit-content;
-}
-#lens image {
-  display: none;
-}
 
+/* BOTTOM ELEMENTS */
+
+.spacer {
+  position: relative;
+  z-index: 100;
+  min-height: 100vh;
+  height: 250vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0;
+  top: 0;
+  opacity: 70%;
+}
 .return-to-top {
   position: fixed;
   bottom: var(--sizexl);
@@ -199,4 +202,10 @@ body {
 .return-to-top:hover {
   transform: scale(1.1);
   background-color: var(--lightyellow);
+}
+
+footer p{
+  color: var(--brightyellow);
+  text-align: center;
+  margin-bottom: 4rem;
 }
