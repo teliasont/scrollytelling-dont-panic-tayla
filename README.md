@@ -1,7 +1,9 @@
 # Don't Panic!
 ## Project 2: Lost in the Scroll
-[Live page](https://teliasont.github.io/scrollytelling-dont-panic-tayla/lost-in-the-scroll/index.html)
 [Repo](https://github.com/teliasont/scrollytelling-dont-panic-tayla)
+
+[Live page](https://teliasont.github.io/scrollytelling-dont-panic-tayla/lost-in-the-scroll/index.html)
+
 
 ## Description
 This project is one big metaphor for learning JavaScript and all its weird little components stylized as an interactive website. This project takes a "scrollytelling" approach, utilizing the scroll bar to make telling a story more interactive and engaging. Plus, I get to incorporate cool animations throughout. My project is centered around exploring a new world (and a new coding language).
