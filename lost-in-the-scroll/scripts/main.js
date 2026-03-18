@@ -54,11 +54,11 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 
+
+
+
 //GSAP ANIMATIONS
  gsap.registerPlugin(ScrollTrigger);
-
-//Gemini helped with the Scroll Smoother stuff, as I could not implement it without breaking all my other animations.
-
 
 //Generate a long string of randomly placed stars
 function generateStars(count, width, height) {
@@ -90,13 +90,32 @@ document.getElementById("stars3").style.boxShadow = generateStars(
   pageHeight,
 );
 
+//PREFERS REDUCED MOTION 
+const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (prefersReducedMotion) { //NO ANIMATIONS
+  gsap.set(".text-box", { autoAlpha: 1, x: 0, xPercent: 0, position: "relative", margin: "50px auto" });
+    gsap.set("#planet", { scale: 1, xPercent: 70, yPercent: -50 });
+    gsap.set("#ufo", { opacity: 1, x: 0, y: 0 });
+  // !!! Needs more tweaking to set the final non-moving parts in place!!!
+//    gsap.set("#planet", {xPercent: 70, yPercent: -50, scale:1});
+// gsap.set("#ufo", {x: 0, y: 0, position: "sticky"});
+//   gsap.set(".text-box", { 
+//     x: 0, 
+//     xPercent: 0, 
+//     autoAlpha: 1, 
+//     position: "relative", 
+//     margin: "20px auto" 
+//   });
+} else { //ALL ANIMATIONS FULL STEAM AHEAD!!
+
+
 // INTRO ELEMENTS
 gsap.set(".dropdown-container", {
   x: 10,
   y: 10
 });
 
-gsap.fromTo(".dropdown-container", 
+const dropdownTween = gsap.fromTo(".dropdown-container", 
   {y:10},
   {
     y:-100,
@@ -174,7 +193,7 @@ function ufoFlames() {
     // Swap fires
     .set(".fire1", { opacity: 0 }, "+=0.5")
     .set(".fire2", { opacity: 1 }, "<")
-
+    //slight delay so it doesn't flicker horribly
     .set({}, {}, "+=0.5");
 }
 
@@ -379,13 +398,6 @@ boxes.forEach((box, i) => {
 
 
 
-
-
-//Planet spins on scroll trigger per section
-
-//lens drops down at end of opening section.
-
-
 //EXIT ANIMATIONS
 const planetExitTL = gsap.timeline({
   scrollTrigger: {
@@ -456,3 +468,29 @@ starExitTL
       toggleActions: "play reverse play reverse"
     }
 });
+}
+
+
+
+//   starTL.kill();
+//   dropdownTween.kill();
+//   planetTween.kill();
+//   gsap.set("#planet", {xPercent: 70, yPercent: -50, scale:1});
+//   ufoTL.kill();
+//   gsap.set("#ufo", {x: 0, y: 0, position: "sticky"});
+//   boxTL.scrollTrigger.kill(true);
+//   boxTL.kill();
+//   planetExitTL.scrollTrigger.kill(true);
+//   planetExitTL.kill();
+//   starExitTL.scrollTrigger.kill(true);
+//   starExitTL.kill();
+//   gsap.set(".text-box", { 
+//     x: 0, 
+//     xPercent: 0, 
+//     autoAlpha: 1, 
+//     position: "relative", 
+//     margin: "20px auto" 
+//   });
+//   ScrollTrigger.refresh();
+
+// //}
