@@ -16,7 +16,7 @@ body {
   color: #f0f0f0;
   background: var(--background);
   font-family: "Barlow Semi Condensed", system-ui, sans-serif;
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   height: auto;
 }
 .hidden {
@@ -189,7 +189,6 @@ body {
   height: auto;
   min-height: 100vh;
   top: 200vh;
-  /* border: 2px solid red; */
 }
 .chapter {
   width: 80%;

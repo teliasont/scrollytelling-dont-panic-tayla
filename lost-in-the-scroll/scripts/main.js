@@ -93,20 +93,109 @@ document.getElementById("stars3").style.boxShadow = generateStars(
 //PREFERS REDUCED MOTION 
 const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 if (prefersReducedMotion) { //NO ANIMATIONS
-  gsap.set(".text-box", { autoAlpha: 1, x: 0, xPercent: 0, position: "relative", margin: "50px auto" });
-    gsap.set("#planet", { scale: 1, xPercent: 70, yPercent: -50 });
-    gsap.set("#ufo", { opacity: 1, x: 0, y: 0 });
-  // !!! Needs more tweaking to set the final non-moving parts in place!!!
-//    gsap.set("#planet", {xPercent: 70, yPercent: -50, scale:1});
-// gsap.set("#ufo", {x: 0, y: 0, position: "sticky"});
-//   gsap.set(".text-box", { 
-//     x: 0, 
-//     xPercent: 0, 
-//     autoAlpha: 1, 
-//     position: "relative", 
-//     margin: "20px auto" 
-//   });
-} else { //ALL ANIMATIONS FULL STEAM AHEAD!!
+  // gsap.set(".text-box", { autoAlpha: 1, x: "150vw", position: "relative", margin: "50px auto" });
+  //   gsap.set("#planet", { scale: 1, xPercent: 70, yPercent: -50 });
+  //   gsap.set("#ufo", { opacity: 1, x: 0, y: 0, position: "sticky" });
+
+  gsap.set("#planet", { scale: 1, xPercent: 70, yPercent: -50, rotation: 0 });
+  gsap.set("#ufo", { opacity: 1, x: 0, y: 0, position: "sticky", margin: "0 auto" });
+  // gsap.set(".column", {position: "sticky"});
+  gsap.set("#lens", { display: "none" });
+  gsap.set(".fire1", { display: "none"});
+  gsap.set(".spacer", {height: "350vh"});
+
+//TEXT BOX ANIMATIONS + TRIGGERING EFFECTS BASED ON BOXES
+//Boxes fade in and out instead of moving in from the side.
+const boxes = gsap.utils.toArray(".text-box");
+const boxTL = gsap.timeline({
+  scrollTrigger: {
+    trigger: ".column",
+    start: "top top",
+    end: () => `+=${boxes.length * 1500}`, //This determines the height ofthe page.
+    pin: true,
+    scrub: 1,
+    pinSpacing: true,
+    aniticipatePin: 1,
+    snap: { //Gemini helped with the snapping to prevent the last box from being so sticky.
+      snapTo: (value, self) => {
+    const labels = self.getLabels();
+    const labelValues = Object.values(labels);
+    // Remove the last 2 labels (the 'in' and 'hold' for the final box)
+    // from the snapping logic so the footer can flow freely.
+    const filteredLabels = labelValues.slice(0, -2); 
+    
+    return gsap.utils.snap(filteredLabels, value);
+  },
+      duration: 0.5, 
+      delay: 0.1, 
+      ease: "power1.inOut"
+    },
+  },
+});
+
+boxes.forEach((box, i) => {
+  const isFirst = i === 0; 
+  const isLast = i === boxes.length - 1; 
+  boxTL.addLabel(`box_${i}_in`); // Add a label for snapping
+  boxTL.set(box, {y:-80});
+
+  if (i===23){
+    const style = getComputedStyle(document.body);
+    const currentColor = style.getPropertyValue('--colorswap-bright').trim();
+  const brightGreen = style.getPropertyValue('--brightgreen').trim();
+  const brightOrange = style.getPropertyValue('--brightorange').trim();
+    if (currentColor === brightGreen){
+        boxTL.to("body", {"--colorswap-bright": "var(--brightorange)",duration: 2, ease: "power2.inOut"}, `box_${i}_in+=0.75`);
+            boxTL.to("body", {"--colorswap-light": "var(--lightorange)",duration: 2, ease: "power2.inOut"}, `box_${i}_in+=0.75`);
+    boxTL.to("body", {"--colorswap-bright-alt": "var(--brightgreen)",duration: 2, ease: "power2.inOut"}, `box_${i}_in+=0.75`);
+    }
+    else {
+      boxTL.to("body", {"--colorswap-bright": "var(--brightgreen)",duration: 2, ease: "power2.inOut"}, `box_${i}_in+=0.75`);
+      boxTL.to("body", {"--colorswap-light": "var(--lightgreen)",duration: 2, ease: "power2.inOut"}, `box_${i}_in+=0.75`);
+    boxTL.to("body", {"--colorswap-bright-alt": "var(--brightorange)",duration: 2, ease: "power2.inOut"}, `box_${i}_in+=0.75`);
+  
+    }
+  }
+  
+  boxTL.fromTo(
+    box,
+    {
+      x:0,
+      autoAlpha: 0, //start off screen to the left and invisible
+    },
+    {
+      x: 0,
+      xPercent: -50,
+      autoAlpha: 1,
+      duration: 0,
+      ease: "power2.out", //move onto screen and become visible
+    },
+    isFirst ? "+=0" : "+=0.5",
+  );
+  boxTL
+    .addLabel(`box_${i}_hold`)
+    .to({}, { duration: 1 }) // Add a label for snapping after a delay
+    .to(
+      box,
+      {
+        x: 0,
+        autoAlpha: 0,
+        duration: 0.5,
+        ease: "power2.in", //exit to the left again
+      },
+      "+=0.5",
+    );
+    if (isLast) {
+    boxTL.to({}, { duration: 4 }); 
+  }
+});
+  
+
+
+    
+
+} else { //ALL ANIMATIONS FULL STEAM AHEAD!! 
+
 
 
 // INTRO ELEMENTS
@@ -471,26 +560,3 @@ starExitTL
 }
 
 
-
-//   starTL.kill();
-//   dropdownTween.kill();
-//   planetTween.kill();
-//   gsap.set("#planet", {xPercent: 70, yPercent: -50, scale:1});
-//   ufoTL.kill();
-//   gsap.set("#ufo", {x: 0, y: 0, position: "sticky"});
-//   boxTL.scrollTrigger.kill(true);
-//   boxTL.kill();
-//   planetExitTL.scrollTrigger.kill(true);
-//   planetExitTL.kill();
-//   starExitTL.scrollTrigger.kill(true);
-//   starExitTL.kill();
-//   gsap.set(".text-box", { 
-//     x: 0, 
-//     xPercent: 0, 
-//     autoAlpha: 1, 
-//     position: "relative", 
-//     margin: "20px auto" 
-//   });
-//   ScrollTrigger.refresh();
-
-// //}
