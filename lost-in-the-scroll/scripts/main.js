@@ -55,19 +55,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 //GSAP ANIMATIONS
-gsap.registerPlugin(ScrollTrigger);
-// let smoother = ScrollSmoother.create({
-//   wrapper: "#smooth-wrapper",
-//   content: "#smooth-content",
-//   smooth: 2,
+ gsap.registerPlugin(ScrollTrigger);
 
-// });
+//Gemini helped with the Scroll Smoother stuff, as I could not implement it without breaking all my other animations.
 
-// ScrollSmoother.create({
-// 	smooth: 1, // how long (in seconds) it takes to "catch up" to the native scroll position
-// 	effects: true, // looks for data-speed and data-lag attributes on elements
-// 	smoothTouch: 0.1 // much shorter smoothing time on touch devices (default is NO smoothing on touch devices)
-// });
 
 //Generate a long string of randomly placed stars
 function generateStars(count, width, height) {
@@ -327,7 +318,22 @@ boxes.forEach((box, i) => {
     boxTL.add(toggleLens(true), `box_${i}_in+=0.5`);
   }
   if (i===23){
-    boxTL.to("#planet", {rotation:"-=5"}, `box_${i}_in+=0.25`);
+    const style = getComputedStyle(document.body);
+    const currentColor = style.getPropertyValue('--colorswap-bright').trim();
+  const brightGreen = style.getPropertyValue('--brightgreen').trim();
+  const brightOrange = style.getPropertyValue('--brightorange').trim();
+    if (currentColor === brightGreen){
+        boxTL.to("body", {"--colorswap-bright": "var(--brightorange)",duration: 2, ease: "power2.inOut"}, `box_${i}_in+=0.75`);
+            boxTL.to("body", {"--colorswap-light": "var(--lightorange)",duration: 2, ease: "power2.inOut"}, `box_${i}_in+=0.75`);
+    boxTL.to("body", {"--colorswap-bright-alt": "var(--brightgreen)",duration: 2, ease: "power2.inOut"}, `box_${i}_in+=0.75`);
+    }
+    else {
+      boxTL.to("body", {"--colorswap-bright": "var(--brightgreen)",duration: 2, ease: "power2.inOut"}, `box_${i}_in+=0.75`);
+      boxTL.to("body", {"--colorswap-light": "var(--lightgreen)",duration: 2, ease: "power2.inOut"}, `box_${i}_in+=0.75`);
+    boxTL.to("body", {"--colorswap-bright-alt": "var(--brightorange)",duration: 2, ease: "power2.inOut"}, `box_${i}_in+=0.75`);
+  
+    }
+
   }
   if(i===25){ //moves lens off screen
     boxTL.to("#lens", {
