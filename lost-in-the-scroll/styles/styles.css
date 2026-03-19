@@ -165,6 +165,9 @@ body {
   top: 50%;
   right: 0;
   z-index: 3;
+  visibility: hidden;
+  opacity: 0;
+  scale:0;
 }
 
 /* LENS */
